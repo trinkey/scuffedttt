@@ -1,14 +1,18 @@
 import random
 
+# variable setup
 win = 0
 pls = []
 ais = []
+# a/b/c are the variables for the board
 a = [" ", " ", " "]
 b = [" ", " ", " "]
 c = [" ", " ", " "]
+# available spaces on the board
 av = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 AISpecialCase = -1
 
+# randomly pick who goes first
 if random.randint(0,1) == 1:
     pxo = "X"
     axo = "O"
@@ -16,6 +20,7 @@ else:
     pxo = "O"
     axo = "X"
 
+# prints the board
 def printBoard():
     global a, b, c
     print("  1   2   3")
@@ -26,12 +31,14 @@ def printBoard():
     print("C " + c[0] + " | " + c[1] + " | " + c[2])
     print("")
 
+# AI check script
 def AICheck():
     global AICheckBlock, AICheckWin
     AICheckWin()
     if AISpecialCase == -1:
         AICheckBlock()
 
+# checks if the AI can block the other player
 def AICheckBlock():
     global av, pls, AISpecialCase
     if pls.count(0) == 1:
@@ -89,6 +96,7 @@ def AICheckBlock():
     elif pls.count(7) == 1 and pls.count(8) == 1 and av.count(6) == 1:
         AISpecialCase = 1
 
+# checks if the AI can win (favored over blocking)
 def AICheckWin():
     global av, ais, AISpecialCase
     if ais.count(0) == 1:
@@ -146,6 +154,7 @@ def AICheckWin():
     elif ais.count(7) == 1 and ais.count(8) == 1 and av.count(6) == 1:
         AISpecialCase = 1
 
+# what happens during the AI's turn
 def AITurn(xo):
     global a, b, c, AISpecialCase, av, ais
     if AISpecialCase != -1:
@@ -164,6 +173,7 @@ def AITurn(xo):
         which += -6
         c[which] = xo
 
+# what happens during the player's turn
 def PlayerTurn(xo):
     global a, b, c, av, pls
     goodInput = 0
@@ -207,6 +217,7 @@ def PlayerTurn(xo):
         which += -6
         c[which] = xo
 
+# checks if either side has won
 def checkIfWin():
     global win, av
     if len(av) == 0:
@@ -253,7 +264,9 @@ def checkIfWin():
     elif win == 3:
         print("You tied? 😳")
 
+# for loop because it is impossible to do 5 turns each or more
 for i in range(5):
+    # X always goes first, so this just checks to make sure X is going first
     if axo == "X":
         AICheck()
         AITurn(axo)
