@@ -12,11 +12,25 @@ c = [" ", " ", " "]
 av = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 AISpecialCase = -1
 
+# To rig who goes first:
+# Literally anything BUT 1 or 2 - Random (default)
+# 1 - You go first
+# 2 - AI goes first
+rig = 0
+
 # randomly pick who goes first
 if random.randint(0,1) == 1:
     pxo = "X"
     axo = "O"
 else:
+    pxo = "O"
+    axo = "X"
+
+# check if there is a rig
+if rig == 1:
+    pxo = "X"
+    axo = "O"
+elif rig == 2:
     pxo = "O"
     axo = "X"
 
